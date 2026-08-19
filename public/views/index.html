@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EduCore</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body data-page="inicio">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a href="/views/index.html" class="marca">
+        <span class="marca-sello">EC</span>
+        <span class="marca-texto">EduCore</span>
+      </a>
+      <ul class="nav-lista">
+        <li><a href="/views/index.html" data-page="inicio">Inicio</a></li>
+        <li><a href="/views/registro-escuela.html" data-page="escuelas">Escuelas</a></li>
+        <li data-solo-admin><a href="/views/usuarios.html" data-page="usuarios">Usuarios</a></li>
+      </ul>
+      <div class="nav-usuario" id="nav-usuario"></div>
+    </aside>
+
+    <main class="contenido">
+      <h1>EduCore</h1>
+      <p class="subtitulo">Sistema de gestión escolar — Sprint 1.</p>
+
+      <div class="ficha">
+        <p>Bienvenida al panel de EduCore. Desde el menú de la izquierda puedes registrar escuelas y, si tienes el rol de administrador, gestionar usuarios.</p>
+      </div>
+    </main>
+  </div>
+  <script src="/js/layout.js"></script>
+</body>
+</html>

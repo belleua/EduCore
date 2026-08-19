@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iniciar sesión · EduCore</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body data-page="login">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a href="/views/index.html" class="marca">
+        <span class="marca-sello">EC</span>
+        <span class="marca-texto">EduCore</span>
+      </a>
+      <ul class="nav-lista">
+        <li><a href="/views/index.html" data-page="inicio">Inicio</a></li>
+        <li><a href="/views/registro-escuela.html" data-page="escuelas">Escuelas</a></li>
+        <li data-solo-admin><a href="/views/usuarios.html" data-page="usuarios">Usuarios</a></li>
+      </ul>
+      <div class="nav-usuario" id="nav-usuario"></div>
+    </aside>
+
+    <main class="contenido">
+      <h1>Iniciar sesión</h1>
+      <p class="subtitulo">Accede con tu correo y contraseña.</p>
+
+      <div class="ficha">
+        <form id="form-login" novalidate>
+          <div class="campo">
+            <label for="correo">Correo</label>
+            <input type="email" id="correo" name="correo" />
+            <span class="error" data-error-for="correo"></span>
+          </div>
+
+          <div class="campo">
+            <label for="contrasena">Contraseña</label>
+            <input type="password" id="contrasena" name="contrasena" />
+            <span class="error" data-error-for="contrasena"></span>
+          </div>
+
+          <div id="mensaje-general" class="mensaje" hidden></div>
+
+          <button type="submit">Iniciar sesión</button>
+        </form>
+      </div>
+    </main>
+  </div>
+  <script src="/js/layout.js"></script>
+  <script src="/js/auth.js"></script>
+</body>
+</html>
