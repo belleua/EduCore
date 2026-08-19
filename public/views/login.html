@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>EduCore</title>
+  <title>Iniciar sesión · EduCore</title>
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
-<body data-page="inicio">
+<body data-page="login">
   <div class="app-shell">
     <aside class="sidebar">
       <a href="/views/index.html" class="marca">
@@ -22,14 +22,31 @@
     </aside>
 
     <main class="contenido">
-      <h1>EduCore</h1>
-      <p class="subtitulo">Sistema de gestión escolar — Sprint 1.</p>
+      <h1>Iniciar sesión</h1>
+      <p class="subtitulo">Accede con tu correo y contraseña.</p>
 
       <div class="ficha">
-        <p>Bienvenida al panel de EduCore. Desde el menú de la izquierda puedes registrar escuelas y, si tienes el rol de administrador, gestionar usuarios.</p>
+        <form id="form-login" novalidate>
+          <div class="campo">
+            <label for="correo">Correo</label>
+            <input type="email" id="correo" name="correo" />
+            <span class="error" data-error-for="correo"></span>
+          </div>
+
+          <div class="campo">
+            <label for="contrasena">Contraseña</label>
+            <input type="password" id="contrasena" name="contrasena" />
+            <span class="error" data-error-for="contrasena"></span>
+          </div>
+
+          <div id="mensaje-general" class="mensaje" hidden></div>
+
+          <button type="submit">Iniciar sesión</button>
+        </form>
       </div>
     </main>
   </div>
   <script src="/js/layout.js"></script>
+  <script src="/js/auth.js"></script>
 </body>
 </html>

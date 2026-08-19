@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Usuarios · EduCore</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body data-page="usuarios">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a href="/views/index.html" class="marca">
+        <span class="marca-sello">EC</span>
+        <span class="marca-texto">EduCore</span>
+      </a>
+      <ul class="nav-lista">
+        <li><a href="/views/index.html" data-page="inicio">Inicio</a></li>
+        <li><a href="/views/registro-escuela.html" data-page="escuelas">Escuelas</a></li>
+        <li data-solo-admin><a href="/views/usuarios.html" data-page="usuarios">Usuarios</a></li>
+      </ul>
+      <div class="nav-usuario" id="nav-usuario"></div>
+    </aside>
+
+    <main class="contenido">
+      <h1>Gestión de usuarios</h1>
+      <p class="subtitulo">Como administrador, crea usuarios y asígnales un rol.</p>
+
+      <div class="ficha">
+        <form id="form-usuario" novalidate>
+          <div class="campo">
+            <label for="nombre">Nombre</label>
+            <input type="text" id="nombre" name="nombre" />
+            <span class="error" data-error-for="nombre"></span>
+          </div>
+
+          <div class="campo">
+            <label for="correo">Correo</label>
+            <input type="email" id="correo" name="correo" />
+            <span class="error" data-error-for="correo"></span>
+          </div>
+
+          <div class="campo">
+            <label for="rol">Rol</label>
+            <select id="rol" name="rol">
+              <option value="">Selecciona un rol</option>
+              <option value="administrador">Administrador</option>
+              <option value="docente">Docente</option>
+              <option value="padre">Padre</option>
+              <option value="estudiante">Estudiante</option>
+            </select>
+            <span class="error" data-error-for="rol"></span>
+          </div>
+
+          <div id="mensaje-general" class="mensaje" hidden></div>
+
+          <button type="submit">Crear usuario</button>
+        </form>
+      </div>
+
+      <h2>Usuarios</h2>
+      <ul id="lista-usuarios" class="lista-registros"></ul>
+    </main>
+  </div>
+  <script src="/js/layout.js"></script>
+  <script src="/js/usuarios.js"></script>
+</body>
+</html>

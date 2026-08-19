@@ -1,10 +1,13 @@
+const Calificacion = require('../models/Calificacion');
+
 // HU-10: Registrar calificaciones (docente)
 // HU-11: Consultar calificaciones (estudiante o padre)
 // TODO:
 // - registrarCalificacion(req,res): docente selecciona curso, asignatura y periodo;
-//   validar que calificacion este dentro del rango permitido (0-100, ver CHECK en schema.sql);
-//   validar que el docente solo registre calificaciones de sus propios cursos
-// - consultarCalificaciones(req,res): agrupar por asignatura y periodo, calcular promedio;
+//   el modelo ya valida rango 0-100 (min/max); validar que el docente solo registre
+//   calificaciones de sus propios cursos
+// - consultarCalificaciones(req,res): Calificacion.find({ estudiante: req.params.estudianteId }),
+//   agrupar por asignatura y periodo, calcular promedio;
 //   si aun no hay calificaciones publicadas, indicarlo claramente en la respuesta
 
 async function registrarCalificacion(req, res) {

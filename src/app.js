@@ -2,8 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const session = require('express-session');
-const pgSession = require('connect-pg-simple')(session);
-const pool = require('./db/pool');
+const MongoStore = require('connect-mongo');
+const conectarDB = require('./db/connection');
 
 const escuelasRoutes = require('./routes/escuelas.routes');
 const authRoutes = require('./routes/auth.routes');
@@ -21,7 +21,7 @@ app.use(express.static(path.join(__dirname, '..', 'public')));
 
 app.use(
   session({
-    store: new pgSession({ pool, tableName: 'session' }),
+    store: MongoStore.create({ mongoUrl: process.env.MONGODB_URI }),
     secret: process.env.SESSION_SECRET || 'dev_secret',
     resave: false,
     saveUninitialized: false,
@@ -47,8 +47,11 @@ app.use('/api/calificaciones', calificacionesRoutes);
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
 const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Servidor corriendo en http://localhost:${PORT}`);
+
+conectarDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+  });
 });
 
 module.exports = app;

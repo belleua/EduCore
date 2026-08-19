@@ -6,24 +6,36 @@ Proyecto académico — plataforma web para que escuelas gestionen usuarios, est
 
 - **Backend**: Node.js + Express
 - **Frontend**: HTML/CSS/JavaScript plano
-- **Base de datos**: PostgreSQL
+- **Base de datos**: MongoDB (Atlas) + Mongoose
 
 ## Requisitos previos
 
 - Node.js 18+
-- PostgreSQL 14+ corriendo localmente (o accesible por red)
+- Acceso a la base de datos compartida en MongoDB Atlas (ver abajo)
 
-## Instalación
+## Base de datos compartida (MongoDB Atlas)
 
+Todo el equipo usa el **mismo cluster de MongoDB Atlas**, así que todos ven los mismos datos.
+
+**Quien crea el cluster (una sola vez):**
+1. Crear cuenta/proyecto en https://www.mongodb.com/cloud/atlas (plan gratuito M0).
+2. Crear un cluster (M0 Free Tier).
+3. En **Database Access**, crear un usuario de base de datos con contraseña (evitar símbolos raros para que sea más fácil de copiar).
+4. En **Network Access**, agregar `0.0.0.0/0` (permitir acceso desde cualquier IP) — para un proyecto académico esto simplifica que todo el equipo se conecte sin configurar IPs una por una.
+5. En **Connect → Drivers → Node.js**, copiar el connection string (`mongodb+srv://...`).
+6. Compartir ese connection string con el equipo por un canal privado (no lo subas a GitHub — ya está en `.gitignore` vía `.env`).
+
+**Cada integrante del equipo:**
 ```bash
 npm install
 cp .env.example .env
-# edita .env con tus credenciales de PostgreSQL
-npm run migrate   # crea las tablas
-npm run dev        # levanta el servidor con nodemon
+# pega el MONGODB_URI que te compartieron en .env
+npm run dev
 ```
 
-El servidor queda disponible en `http://localhost:3000`.
+El servidor queda disponible en `http://localhost:3000`. Mongoose crea las colecciones automáticamente la primera vez que se guarda un documento — no hace falta correr ninguna migración.
+
+> ⚠️ Nunca subas el archivo `.env` a GitHub — solo `.env.example` (sin credenciales reales) va al repositorio.
 
 ## Estructura del proyecto
 
@@ -31,9 +43,8 @@ El servidor queda disponible en `http://localhost:3000`.
 src/
   app.js                 # punto de entrada de Express
   db/
-    pool.js               # conexión a PostgreSQL
-    schema.sql             # esquema de base de datos
-    migrate.js             # script de migración
+    connection.js          # conexion a MongoDB (Mongoose)
+  models/                 # esquemas de Mongoose (Escuela, Usuario, Estudiante, Inscripcion, Calificacion)
   routes/                 # rutas por historia de usuario
   controllers/            # lógica de cada endpoint
   middlewares/            # autenticación y control de roles

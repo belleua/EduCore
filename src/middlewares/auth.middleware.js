@@ -1,6 +1,3 @@
-// Middleware base de autenticacion y autorizacion por rol.
-// Se completa en la rama feature/HU-02-login-por-rol y feature/HU-03-gestion-usuarios-permisos.
-
 function requireAuth(req, res, next) {
   if (!req.session || !req.session.usuario) {
     return res.status(401).json({ error: 'Debe iniciar sesion para continuar.' });

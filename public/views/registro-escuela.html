@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrar escuela · EduCore</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body data-page="escuelas">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a href="/views/index.html" class="marca">
+        <span class="marca-sello">EC</span>
+        <span class="marca-texto">EduCore</span>
+      </a>
+      <ul class="nav-lista">
+        <li><a href="/views/index.html" data-page="inicio">Inicio</a></li>
+        <li><a href="/views/registro-escuela.html" data-page="escuelas">Escuelas</a></li>
+        <li data-solo-admin><a href="/views/usuarios.html" data-page="usuarios">Usuarios</a></li>
+      </ul>
+      <div class="nav-usuario" id="nav-usuario"></div>
+    </aside>
+
+    <main class="contenido">
+      <h1>Registrar escuela</h1>
+      <p class="subtitulo">Como administrador del sistema, registra una escuela para que su personal pueda empezar a gestionar sus estudiantes.</p>
+
+      <div class="ficha">
+        <form id="form-escuela" novalidate>
+          <div class="campo">
+            <label for="nombre">Nombre de la escuela</label>
+            <input type="text" id="nombre" name="nombre" />
+            <span class="error" data-error-for="nombre"></span>
+          </div>
+
+          <div class="campo">
+            <label for="codigo">Código</label>
+            <input type="text" id="codigo" name="codigo" />
+            <span class="error" data-error-for="codigo"></span>
+          </div>
+
+          <div class="campo">
+            <label for="direccion">Dirección</label>
+            <input type="text" id="direccion" name="direccion" />
+            <span class="error" data-error-for="direccion"></span>
+          </div>
+
+          <div class="campo">
+            <label for="contacto">Contacto</label>
+            <input type="text" id="contacto" name="contacto" placeholder="Teléfono o correo" />
+            <span class="error" data-error-for="contacto"></span>
+          </div>
+
+          <div id="mensaje-general" class="mensaje" hidden></div>
+
+          <button type="submit">Registrar escuela</button>
+        </form>
+      </div>
+
+      <h2>Escuelas registradas</h2>
+      <ul id="lista-escuelas" class="lista-registros"></ul>
+    </main>
+  </div>
+  <script src="/js/layout.js"></script>
+  <script src="/js/escuelas.js"></script>
+</body>
+</html>
