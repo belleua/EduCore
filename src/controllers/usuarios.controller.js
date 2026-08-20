@@ -85,4 +85,78 @@ async function listarUsuarios(req, res) {
   }
 }
 
-module.exports = { crearUsuario, desactivarUsuario, listarUsuarios };
+async function obtenerPerfilPropio(req, res) {
+  try {
+    const usuario = await Usuario.findById(req.session.usuario.id).select('-contrasenaHash');
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuario no encontrado.' });
+    }
+    return res.json(usuario);
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Error al obtener el perfil.' });
+  }
+}
+
+async function agregarAsignacion(req, res) {
+  const { grado, asignatura } = req.body;
+
+  if (!grado || !asignatura) {
+    return res.status(400).json({ error: 'Debe indicar grado y asignatura.' });
+  }
+
+  try {
+    const usuario = await Usuario.findById(req.params.id);
+
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuario no encontrado.' });
+    }
+    if (usuario.rol !== 'docente') {
+      return res.status(400).json({ error: 'Solo se pueden asignar materias a usuarios con rol docente.' });
+    }
+
+    const yaExiste = usuario.asignaciones.some(
+      (a) => a.grado === grado && a.asignatura === asignatura
+    );
+    if (yaExiste) {
+      return res.status(409).json({ error: 'Esa asignación ya existe para este docente.' });
+    }
+
+    usuario.asignaciones.push({ grado, asignatura });
+    await usuario.save();
+
+    return res.status(201).json({ asignaciones: usuario.asignaciones });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Error al agregar la asignación.' });
+  }
+}
+
+async function quitarAsignacion(req, res) {
+  try {
+    const usuario = await Usuario.findById(req.params.id);
+
+    if (!usuario) {
+      return res.status(404).json({ error: 'Usuario no encontrado.' });
+    }
+
+    usuario.asignaciones = usuario.asignaciones.filter(
+      (a) => a._id.toString() !== req.params.asignacionId
+    );
+    await usuario.save();
+
+    return res.json({ asignaciones: usuario.asignaciones });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ error: 'Error al quitar la asignación.' });
+  }
+}
+
+module.exports = {
+  crearUsuario,
+  desactivarUsuario,
+  listarUsuarios,
+  obtenerPerfilPropio,
+  agregarAsignacion,
+  quitarAsignacion,
+};

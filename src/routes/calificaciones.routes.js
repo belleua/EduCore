@@ -3,12 +3,10 @@ const router = express.Router();
 const { requireRole, requireAuth } = require('../middlewares/auth.middleware');
 const {
   registrarCalificacion,
-  consultarCalificaciones,
+  buscarCalificacionesPorDocumento,
 } = require('../controllers/calificaciones.controller');
 
-// HU-10
 router.post('/', requireRole('docente'), registrarCalificacion);
-// HU-11
-router.get('/:estudianteId', requireAuth, consultarCalificaciones);
+router.get('/buscar', requireAuth, buscarCalificacionesPorDocumento);
 
 module.exports = router;

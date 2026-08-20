@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Consultar calificaciones · EduCore</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body data-page="consultar-cal">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a href="/views/index.html" class="marca">
+        <span class="marca-sello">EC</span>
+        <span class="marca-texto">EduCore</span>
+      </a>
+      <ul class="nav-lista">
+        <li><a href="/views/index.html" data-page="inicio">Inicio</a></li>
+        <li><a href="/views/registro-escuela.html" data-page="escuelas">Escuelas</a></li>
+        <li data-solo-admin><a href="/views/usuarios.html" data-page="usuarios">Usuarios</a></li>
+        <li><a href="/views/registrar-calificacion.html" data-page="registrar-cal">Registrar notas</a></li>
+        <li><a href="/views/consultar-calificaciones.html" data-page="consultar-cal">Consultar notas</a></li>
+      </ul>
+      <div class="nav-usuario" id="nav-usuario"></div>
+    </aside>
+
+    <main class="contenido">
+      <h1>Consultar calificaciones</h1>
+      <p class="subtitulo">Busca por la cédula del estudiante para ver su desempeño académico.</p>
+
+      <div class="ficha">
+        <form id="form-buscar" novalidate>
+          <div class="campo">
+            <label for="documentoIdentidad">Cédula del estudiante</label>
+            <input type="text" id="documentoIdentidad" name="documentoIdentidad" />
+            <span class="error" data-error-for="documentoIdentidad"></span>
+          </div>
+
+          <div id="mensaje-general" class="mensaje" hidden></div>
+
+          <button type="submit">Buscar</button>
+        </form>
+      </div>
+
+      <div id="resultado" class="resultado-consulta"></div>
+    </main>
+  </div>
+  <script src="/js/layout.js"></script>
+  <script src="/js/consultar-calificaciones.js"></script>
+</body>
+</html>

@@ -44,6 +44,10 @@ app.use('/api/inscripciones', inscripcionesRoutes);
 // HU-10 / HU-11: Registrar / Consultar calificaciones
 app.use('/api/calificaciones', calificacionesRoutes);
 
+app.get('/', (req, res) => {
+  res.redirect('/views/index.html');
+});
+
 app.get('/health', (req, res) => res.json({ status: 'ok' }));
 
 const PORT = process.env.PORT || 3000;

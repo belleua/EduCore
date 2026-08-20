@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Registrar calificación · EduCore</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body data-page="registrar-cal">
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a href="/views/index.html" class="marca">
+        <span class="marca-sello">EC</span>
+        <span class="marca-texto">EduCore</span>
+      </a>
+      <ul class="nav-lista">
+        <li><a href="/views/index.html" data-page="inicio">Inicio</a></li>
+        <li><a href="/views/registro-escuela.html" data-page="escuelas">Escuelas</a></li>
+        <li data-solo-admin><a href="/views/usuarios.html" data-page="usuarios">Usuarios</a></li>
+        <li><a href="/views/registrar-calificacion.html" data-page="registrar-cal">Registrar notas</a></li>
+        <li><a href="/views/consultar-calificaciones.html" data-page="consultar-cal">Consultar notas</a></li>
+      </ul>
+      <div class="nav-usuario" id="nav-usuario"></div>
+    </aside>
+
+    <main class="contenido">
+      <h1>Registrar calificación</h1>
+      <p class="subtitulo">Solo puedes registrar notas de las materias y grados que tienes asignados.</p>
+
+      <div id="sin-asignaciones" class="mensaje error" hidden>
+        Aún no tienes materias asignadas. Pide a un administrador que te las asigne desde el panel de Usuarios.
+      </div>
+
+      <div class="ficha" id="ficha-formulario">
+        <form id="form-calificacion" novalidate>
+          <div class="campo">
+            <label for="documentoIdentidad">Cédula del estudiante</label>
+            <input type="text" id="documentoIdentidad" name="documentoIdentidad" />
+            <span class="error" data-error-for="documentoIdentidad"></span>
+          </div>
+
+          <div class="campo">
+            <label for="grado">Grado</label>
+            <select id="grado" name="grado">
+              <option value="">Selecciona un grado</option>
+            </select>
+            <span class="error" data-error-for="grado"></span>
+          </div>
+
+          <div class="campo">
+            <label for="asignatura">Asignatura</label>
+            <select id="asignatura" name="asignatura">
+              <option value="">Selecciona un grado primero</option>
+            </select>
+            <span class="error" data-error-for="asignatura"></span>
+          </div>
+
+          <div class="campo">
+            <label for="periodo">Periodo</label>
+            <input type="text" id="periodo" name="periodo" placeholder="ej. 2026-P1" />
+            <span class="error" data-error-for="periodo"></span>
+          </div>
+
+          <div class="campo">
+            <label for="calificacion">Calificación (0-100)</label>
+            <input type="number" id="calificacion" name="calificacion" min="0" max="100" step="0.01" />
+            <span class="error" data-error-for="calificacion"></span>
+          </div>
+
+          <div id="mensaje-general" class="mensaje" hidden></div>
+
+          <button type="submit">Registrar calificación</button>
+        </form>
+      </div>
+    </main>
+  </div>
+  <script src="/js/layout.js"></script>
+  <script src="/js/registrar-calificacion.js"></script>
+</body>
+</html>
