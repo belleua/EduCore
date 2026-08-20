@@ -17,21 +17,18 @@ async function crearInscripcion(req, res) {
     const usuario = req.session.usuario;
     const { estudiantes } = req.body;
 
-    // Paso 1: Validar que se envio un arreglo con al menos un estudiante
     if (!Array.isArray(estudiantes) || estudiantes.length === 0) {
       return res.status(400).json({
         error: 'Debe incluir al menos un estudiante para inscribir.',
       });
     }
 
-    // Paso 2: Validar que el padre tenga una escuela asignada
     if (!usuario.escuela) {
       return res.status(400).json({
         error: 'Su cuenta no tiene una escuela asignada. Contacte al administrador.',
       });
     }
 
-    // Paso 3: Validar cada estudiante antes de guardar nada (todo o nada)
     const errores = [];
     estudiantes.forEach((est, index) => {
       const { nombreCompleto, documentoIdentidad, fechaNacimiento, grado } = est;
@@ -46,7 +43,6 @@ async function crearInscripcion(req, res) {
       return res.status(400).json({ error: 'Datos inválidos.', detalles: errores });
     }
 
-    // Paso 4: Crear Estudiante + Inscripcion por cada uno
     const inscripcionesCreadas = [];
 
     for (const est of estudiantes) {
@@ -71,7 +67,6 @@ async function crearInscripcion(req, res) {
       inscripcionesCreadas.push(nuevaInscripcion);
     }
 
-    // Paso 5: Responder con las inscripciones creadas
     return res.status(201).json({
       mensaje: `${inscripcionesCreadas.length} solicitud(es) de inscripción creada(s) correctamente.`,
       inscripciones: inscripcionesCreadas,
@@ -82,8 +77,18 @@ async function crearInscripcion(req, res) {
   }
 }
 
+// HU-08: Listar solicitudes pendientes
 async function listarPendientes(req, res) {
-  res.status(501).json({ mensaje: 'Pendiente de implementar: HU-08 listar pendientes' });
+  try {
+    const pendientes = await Inscripcion.find({ estado: 'Pendiente' })
+      .populate('estudiante')
+      .sort({ creadoEn: 1 });
+
+    return res.status(200).json({ pendientes });
+  } catch (err) {
+    console.error('Error al listar pendientes:', err.message);
+    return res.status(500).json({ error: 'Error al consultar las solicitudes pendientes.' });
+  }
 }
 
 async function listarPorPadre(req, res) {
@@ -101,8 +106,58 @@ async function listarPorPadre(req, res) {
   }
 }
 
+// HU-08: Aprobar o rechazar una solicitud
 async function revisarInscripcion(req, res) {
-  res.status(501).json({ mensaje: 'Pendiente de implementar: HU-08 revisar inscripcion' });
+  try {
+    const usuario = req.session.usuario;
+    const { id } = req.params;
+    const { decision, motivoRechazo } = req.body;
+
+    // Paso 1: Validar que la decision sea valida
+    if (!['Aprobada', 'Rechazada'].includes(decision)) {
+      return res.status(400).json({
+        error: 'La decisión debe ser "Aprobada" o "Rechazada".',
+      });
+    }
+
+    // Paso 2: Si es rechazo, el motivo es obligatorio
+    if (decision === 'Rechazada' && !motivoRechazo) {
+      return res.status(400).json({
+        error: 'Debe indicar un motivo para rechazar la solicitud.',
+      });
+    }
+
+    // Paso 3: Buscar la inscripcion
+    const inscripcion = await Inscripcion.findById(id);
+    if (!inscripcion) {
+      return res.status(404).json({ error: 'Solicitud de inscripción no encontrada.' });
+    }
+
+    // Paso 4: No se puede revisar una solicitud ya revisada
+    if (inscripcion.estado !== 'Pendiente') {
+      return res.status(400).json({
+        error: `Esta solicitud ya fue revisada anteriormente (estado actual: ${inscripcion.estado}).`,
+      });
+    }
+
+    // Paso 5: Actualizar la inscripcion
+    inscripcion.estado = decision;
+    inscripcion.revisadoPor = usuario.id;
+    inscripcion.revisadoEn = new Date();
+    if (decision === 'Rechazada') {
+      inscripcion.motivoRechazo = motivoRechazo;
+    }
+    await inscripcion.save();
+    await inscripcion.populate('estudiante');
+
+    return res.status(200).json({
+      mensaje: `Solicitud ${decision.toLowerCase()} correctamente.`,
+      inscripcion,
+    });
+  } catch (err) {
+    console.error('Error al revisar inscripcion:', err.message);
+    return res.status(500).json({ error: 'Error al procesar la revisión.' });
+  }
 }
 
 module.exports = { crearInscripcion, listarPendientes, listarPorPadre, revisarInscripcion };
