@@ -4,77 +4,476 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Registrar calificación · EduCore</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
-<body data-page="registrar-cal">
-  <div class="app-shell">
-    <aside class="sidebar">
-      <a href="/views/index.html" class="marca">
-        <span class="marca-sello">EC</span>
-        <span class="marca-texto">EduCore</span>
-      </a>
-      <ul class="nav-lista">
-        <li><a href="/views/index.html" data-page="inicio">Inicio</a></li>
-        <li><a href="/views/registro-escuela.html" data-page="escuelas">Escuelas</a></li>
-        <li data-solo-admin><a href="/views/usuarios.html" data-page="usuarios">Usuarios</a></li>
-        <li><a href="/views/registrar-calificacion.html" data-page="registrar-cal">Registrar notas</a></li>
-        <li><a href="/views/consultar-calificaciones.html" data-page="consultar-cal">Consultar notas</a></li>
-      </ul>
-      <div class="nav-usuario" id="nav-usuario"></div>
-    </aside>
 
-    <main class="contenido">
-      <h1>Registrar calificación</h1>
-      <p class="subtitulo">Solo puedes registrar notas de las materias y grados que tienes asignados.</p>
+<body data-page="registrar-cal" class="dashboard-page">
 
-      <div id="sin-asignaciones" class="mensaje error" hidden>
-        Aún no tienes materias asignadas. Pide a un administrador que te las asigne desde el panel de Usuarios.
-      </div>
+  <div class="dashboard-background">
+    <div class="dashboard-shell">
 
-      <div class="ficha" id="ficha-formulario">
-        <form id="form-calificacion" novalidate>
-          <div class="campo">
-            <label for="documentoIdentidad">Cédula del estudiante</label>
-            <input type="text" id="documentoIdentidad" name="documentoIdentidad" />
-            <span class="error" data-error-for="documentoIdentidad"></span>
+      <!-- SIDEBAR -->
+      <aside class="dashboard-sidebar">
+
+        <a href="/views/index.html" class="marca dashboard-brand">
+          <span class="marca-sello">EC</span>
+
+          <span class="dashboard-brand-copy">
+            <strong class="marca-texto">EduCore</strong>
+            <small>Gestión Escolar</small>
+          </span>
+        </a>
+
+        <div class="sidebar-section-label">MENÚ</div>
+
+        <ul class="nav-lista dashboard-nav">
+
+          <li>
+            <a href="/views/index.html" data-page="inicio">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M4 11L12 4L20 11V20H14V14H10V20H4V11Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <span>Inicio</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/views/registro-escuela.html" data-page="escuelas">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20V9L12 4L20 9V20"
+                        stroke="currentColor"
+                        stroke-width="1.8"/>
+                  <path d="M8 20V13H16V20"
+                        stroke="currentColor"
+                        stroke-width="1.8"/>
+                </svg>
+              </span>
+              <span>Escuelas</span>
+            </a>
+          </li>
+
+          <li data-solo-admin>
+            <a href="/views/usuarios.html" data-page="usuarios">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="9" cy="8" r="3"
+                          stroke="currentColor"
+                          stroke-width="1.8"/>
+                  <path d="M3.5 19C4.2 15.9 6.1 14 9 14C11.9 14 13.8 15.9 14.5 19"
+                        stroke="currentColor"
+                        stroke-width="1.8"/>
+                  <path d="M16 8H21M18.5 5.5V10.5"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span>Usuarios</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/views/registrar-calificaciones.html" data-page="registrar-cal">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M5 4H19V20H5V4Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"/>
+                  <path d="M8 8H16M8 12H16M8 16H13"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span>Registrar notas</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/views/consultar-calificaciones.html" data-page="consultar-cal">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="10" cy="10" r="5"
+                          stroke="currentColor"
+                          stroke-width="1.8"/>
+                  <path d="M14 14L20 20"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span>Consultar notas</span>
+            </a>
+          </li>
+
+        </ul>
+
+        <div class="sidebar-bottom">
+          <div class="nav-usuario dashboard-user" id="nav-usuario"></div>
+        </div>
+
+      </aside>
+
+
+      <!-- CONTENIDO -->
+      <main class="dashboard-content">
+
+        <header class="dashboard-topbar">
+          <div>
+            <span class="dashboard-kicker">HU-10 · GESTIÓN ACADÉMICA</span>
+            <h1>Calificaciones</h1>
           </div>
 
-          <div class="campo">
-            <label for="grado">Grado</label>
-            <select id="grado" name="grado">
-              <option value="">Selecciona un grado</option>
-            </select>
-            <span class="error" data-error-for="grado"></span>
+          <span class="status-pill">
+            <span class="status-dot"></span>
+            Módulo activo
+          </span>
+        </header>
+
+
+        <!-- CABECERA -->
+        <section class="module-hero">
+
+          <div>
+            <span class="module-path">EduCore • Registro académico</span>
+            <h2>Registrar calificación</h2>
+            <p>Registro de notas por estudiante.</p>
           </div>
 
-          <div class="campo">
-            <label for="asignatura">Asignatura</label>
-            <select id="asignatura" name="asignatura">
-              <option value="">Selecciona un grado primero</option>
-            </select>
-            <span class="error" data-error-for="asignatura"></span>
+          <div class="module-actions">
+
+            <a
+              href="/views/consultar-calificaciones.html"
+              class="module-btn module-btn-outline module-link-btn"
+            >
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="10" cy="10" r="5"
+                        stroke="currentColor"
+                        stroke-width="1.8"/>
+                <path d="M14 14L20 20"
+                      stroke="currentColor"
+                      stroke-width="1.8"
+                      stroke-linecap="round"/>
+              </svg>
+              Consultar
+            </a>
+
           </div>
 
-          <div class="campo">
-            <label for="periodo">Periodo</label>
-            <input type="text" id="periodo" name="periodo" placeholder="ej. 2026-P1" />
-            <span class="error" data-error-for="periodo"></span>
+        </section>
+
+
+        <!-- AVISOS -->
+        <div id="sin-asignaciones" class="academic-alert warning" hidden>
+          <span class="academic-alert-icon">!</span>
+          <span>No tienes materias asignadas.</span>
+        </div>
+
+        <div id="mensaje-general" class="mensaje module-message academic-global-message" hidden></div>
+
+
+        <!-- FORMULARIO -->
+        <section class="module-card" id="ficha-formulario">
+
+          <div class="module-card-header">
+            <div>
+              <span class="card-eyebrow">FORMULARIO</span>
+              <h3>Nueva calificación</h3>
+            </div>
+
+            <span class="module-chip">HU-10</span>
           </div>
 
-          <div class="campo">
-            <label for="calificacion">Calificación (0-100)</label>
-            <input type="number" id="calificacion" name="calificacion" min="0" max="100" step="0.01" />
-            <span class="error" data-error-for="calificacion"></span>
+
+          <form id="form-calificacion" class="enterprise-form" novalidate>
+
+            <div class="academic-form-grid">
+
+              <!-- CÉDULA -->
+              <div class="enterprise-field academic-student-field">
+                <label for="documentoIdentidad">ID del estudiante</label>
+
+                <div class="enterprise-input">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <rect x="4" y="5" width="16" height="14" rx="2"
+                          stroke="currentColor"
+                          stroke-width="1.7"/>
+                    <circle cx="9" cy="10" r="2"
+                            stroke="currentColor"
+                            stroke-width="1.7"/>
+                    <path d="M7 15C7.5 13.7 8.3 13 9.5 13C10.7 13 11.5 13.7 12 15"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"/>
+                    <path d="M14 9H17M14 12H17M14 15H17"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"/>
+                  </svg>
+
+                  <input
+                    type="text"
+                    id="documentoIdentidad"
+                    name="documentoIdentidad"
+                    placeholder="Ej. EST-0248"
+                  />
+                </div>
+
+                <span class="error" data-error-for="documentoIdentidad"></span>
+              </div>
+
+
+              <!-- PERIODO -->
+              <div class="enterprise-field">
+                <label for="periodo">Periodo</label>
+
+                <div class="enterprise-input">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <rect x="4" y="5" width="16" height="15" rx="2"
+                          stroke="currentColor"
+                          stroke-width="1.7"/>
+                    <path d="M8 3V7M16 3V7M4 10H20"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"/>
+                  </svg>
+
+                  <input
+                    type="text"
+                    id="periodo"
+                    name="periodo"
+                    placeholder="Ej. 2026-P1"
+                  />
+                </div>
+
+                <span class="error" data-error-for="periodo"></span>
+              </div>
+
+
+              <!-- GRADO -->
+              <div class="enterprise-field">
+                <label for="grado">Grado</label>
+
+                <div class="enterprise-select">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M4 7L12 3L20 7L12 11L4 7Z"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linejoin="round"/>
+                    <path d="M7 9V14C7 16 9.2 18 12 18C14.8 18 17 16 17 14V9"
+                          stroke="currentColor"
+                          stroke-width="1.7"/>
+                  </svg>
+
+                  <select id="grado" name="grado">
+                    <option value="">Selecciona un grado</option>
+                  </select>
+                </div>
+
+                <span class="error" data-error-for="grado"></span>
+              </div>
+
+
+              <!-- ASIGNATURA -->
+              <div class="enterprise-field">
+                <label for="asignatura">Asignatura</label>
+
+                <div class="enterprise-select">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M5 4H19V20H5V4Z"
+                          stroke="currentColor"
+                          stroke-width="1.7"/>
+                    <path d="M8 8H16M8 12H16M8 16H13"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"/>
+                  </svg>
+
+                  <select id="asignatura" name="asignatura">
+                    <option value="">Selecciona un grado primero</option>
+                  </select>
+                </div>
+
+                <span class="error" data-error-for="asignatura"></span>
+              </div>
+
+
+              <!-- CALIFICACIÓN -->
+              <div class="enterprise-field enterprise-field-full grade-field">
+                <label for="calificacion">Calificación</label>
+
+                <div class="grade-input-wrapper">
+
+                  <div class="enterprise-input">
+                    <svg viewBox="0 0 24 24" fill="none">
+                      <path d="M5 4H19V20H5V4Z"
+                            stroke="currentColor"
+                            stroke-width="1.7"/>
+                      <path d="M8 14L10.5 11.5L13 14L17 10"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"/>
+                    </svg>
+
+                    <input
+                      type="number"
+                      id="calificacion"
+                      name="calificacion"
+                      min="0"
+                      max="100"
+                      step="0.01"
+                      placeholder="0 - 100"
+                    />
+                  </div>
+
+                  <span class="grade-scale">/ 100</span>
+
+                </div>
+
+                <span class="error" data-error-for="calificacion"></span>
+              </div>
+
+            </div>
+
+
+            <div class="enterprise-form-actions">
+
+              <button
+                type="button"
+                class="enterprise-btn secondary"
+                id="btn-limpiar-calificacion"
+              >
+                Limpiar
+              </button>
+
+              <button type="submit" class="enterprise-btn primary">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M5 5H17L20 8V19H5V5Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linejoin="round"/>
+                  <path d="M8 5V10H16V5M8 19V14H17V19"
+                        stroke="currentColor"
+                        stroke-width="1.8"/>
+                </svg>
+
+                Registrar calificación
+              </button>
+
+            </div>
+
+          </form>
+
+        </section>
+
+
+        <!-- RESUMEN VISUAL -->
+        <section class="academic-info-grid">
+
+          <div class="academic-mini-card">
+            <span class="academic-mini-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M4 7L12 3L20 7L12 11L4 7Z"
+                      stroke="currentColor"
+                      stroke-width="1.7"/>
+                <path d="M7 9V14C7 16 9.2 18 12 18C14.8 18 17 16 17 14V9"
+                      stroke="currentColor"
+                      stroke-width="1.7"/>
+              </svg>
+            </span>
+
+            <div>
+              <strong>Grado</strong>
+              <span>Según asignación docente</span>
+            </div>
           </div>
 
-          <div id="mensaje-general" class="mensaje" hidden></div>
 
-          <button type="submit">Registrar calificación</button>
-        </form>
-      </div>
-    </main>
+          <div class="academic-mini-card">
+            <span class="academic-mini-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M5 4H19V20H5V4Z"
+                      stroke="currentColor"
+                      stroke-width="1.7"/>
+                <path d="M8 8H16M8 12H16"
+                      stroke="currentColor"
+                      stroke-width="1.7"/>
+              </svg>
+            </span>
+
+            <div>
+              <strong>Asignatura</strong>
+              <span>Materias autorizadas</span>
+            </div>
+          </div>
+
+
+          <div class="academic-mini-card">
+            <span class="academic-mini-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <circle cx="12" cy="12" r="8"
+                        stroke="currentColor"
+                        stroke-width="1.7"/>
+                <path d="M8 12L11 15L16 9"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"/>
+              </svg>
+            </span>
+
+            <div>
+              <strong>Escala</strong>
+              <span>0 a 100 puntos</span>
+            </div>
+          </div>
+
+        </section>
+
+      </main>
+    </div>
   </div>
+
+
   <script src="/js/layout.js"></script>
   <script src="/js/registrar-calificacion.js"></script>
+
+  <script>
+    const formCalificacion = document.getElementById('form-calificacion');
+    const btnLimpiarCalificacion =
+      document.getElementById('btn-limpiar-calificacion');
+
+    btnLimpiarCalificacion.addEventListener('click', () => {
+      formCalificacion.reset();
+
+      document
+        .querySelectorAll('#form-calificacion .error')
+        .forEach(error => error.textContent = '');
+
+      document.getElementById('asignatura').innerHTML =
+        '<option value="">Selecciona un grado primero</option>';
+
+      const mensaje = document.getElementById('mensaje-general');
+
+      if (mensaje) {
+        mensaje.hidden = true;
+      }
+
+      document.getElementById('documentoIdentidad').focus();
+    });
+  </script>
+
 </body>
 </html>

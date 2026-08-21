@@ -4,66 +4,355 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Usuarios · EduCore</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
-<body data-page="usuarios">
-  <div class="app-shell">
-    <aside class="sidebar">
-      <a href="/views/index.html" class="marca">
-        <span class="marca-sello">EC</span>
-        <span class="marca-texto">EduCore</span>
-      </a>
-      <ul class="nav-lista">
-        <li><a href="/views/index.html" data-page="inicio">Inicio</a></li>
-        <li><a href="/views/registro-escuela.html" data-page="escuelas">Escuelas</a></li>
-        <li data-solo-admin><a href="/views/usuarios.html" data-page="usuarios">Usuarios</a></li>
-        <li><a href="/views/registrar-calificacion.html" data-page="registrar-cal">Registrar notas</a></li>
-        <li><a href="/views/consultar-calificaciones.html" data-page="consultar-cal">Consultar notas</a></li>
-      </ul>
-      <div class="nav-usuario" id="nav-usuario"></div>
-    </aside>
 
-    <main class="contenido">
-      <h1>Gestión de usuarios</h1>
-      <p class="subtitulo">Como administrador, crea usuarios, asígnales un rol y, si son docentes, las materias que pueden calificar.</p>
+<body data-page="usuarios" class="dashboard-page">
 
-      <div class="ficha">
-        <form id="form-usuario" novalidate>
-          <div class="campo">
-            <label for="nombre">Nombre</label>
-            <input type="text" id="nombre" name="nombre" />
-            <span class="error" data-error-for="nombre"></span>
+  <div class="dashboard-background">
+    <div class="dashboard-shell">
+
+      <!-- SIDEBAR -->
+      <aside class="dashboard-sidebar">
+
+        <a href="/views/index.html" class="marca dashboard-brand">
+          <span class="marca-sello">EC</span>
+
+          <span class="dashboard-brand-copy">
+            <strong class="marca-texto">EduCore</strong>
+            <small>Gestión Escolar</small>
+          </span>
+        </a>
+
+        <div class="sidebar-section-label">MENÚ</div>
+
+        <ul class="nav-lista dashboard-nav">
+
+          <li>
+            <a href="/views/index.html" data-page="inicio">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M4 11L12 4L20 11V20H14V14H10V20H4V11Z"
+                        stroke="currentColor" stroke-width="1.8"
+                        stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <span>Inicio</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/views/registro-escuela.html" data-page="escuelas">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20V9L12 4L20 9V20"
+                        stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M8 20V13H16V20"
+                        stroke="currentColor" stroke-width="1.8"/>
+                </svg>
+              </span>
+              <span>Escuelas</span>
+            </a>
+          </li>
+
+          <li data-solo-admin>
+            <a href="/views/usuarios.html" data-page="usuarios">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="9" cy="8" r="3"
+                          stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M3.5 19C4.2 15.9 6.1 14 9 14C11.9 14 13.8 15.9 14.5 19"
+                        stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M16 8H21M18.5 5.5V10.5"
+                        stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span>Usuarios</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/views/registrar-calificaciones.html" data-page="registrar-cal">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M5 4H19V20H5V4Z"
+                        stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M8 8H16M8 12H16M8 16H13"
+                        stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span>Registrar notas</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/views/consultar-calificaciones.html" data-page="consultar-cal">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="10" cy="10" r="5"
+                          stroke="currentColor" stroke-width="1.8"/>
+                  <path d="M14 14L20 20"
+                        stroke="currentColor" stroke-width="1.8"
+                        stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span>Consultar notas</span>
+            </a>
+          </li>
+
+        </ul>
+
+        <div class="sidebar-bottom">
+          <div class="nav-usuario dashboard-user" id="nav-usuario"></div>
+        </div>
+
+      </aside>
+
+
+      <!-- CONTENIDO -->
+      <main class="dashboard-content">
+
+        <header class="dashboard-topbar">
+          <div>
+            <span class="dashboard-kicker">HU-03 · ADMINISTRACIÓN</span>
+            <h1>Usuarios</h1>
           </div>
 
-          <div class="campo">
-            <label for="correo">Correo</label>
-            <input type="email" id="correo" name="correo" />
-            <span class="error" data-error-for="correo"></span>
+          <span class="status-pill">
+            <span class="status-dot"></span>
+            Módulo activo
+          </span>
+        </header>
+
+
+        <!-- CABECERA -->
+        <section class="module-hero">
+          <div>
+            <span class="module-path">EduCore • Accesos y permisos</span>
+            <h2>Gestión de usuarios</h2>
+            <p>Usuarios, roles y asignaciones.</p>
           </div>
 
-          <div class="campo">
-            <label for="rol">Rol</label>
-            <select id="rol" name="rol">
-              <option value="">Selecciona un rol</option>
-              <option value="administrador">Administrador</option>
-              <option value="docente">Docente</option>
-              <option value="padre">Padre</option>
-              <option value="estudiante">Estudiante</option>
-            </select>
-            <span class="error" data-error-for="rol"></span>
+          <div class="module-actions">
+            <button type="button" class="module-btn module-btn-outline" id="btn-nuevo-usuario">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 5V19M5 12H19"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"/>
+              </svg>
+              Nuevo
+            </button>
+          </div>
+        </section>
+
+
+        <!-- FORMULARIO -->
+        <section class="module-card">
+
+          <div class="module-card-header">
+            <div>
+              <span class="card-eyebrow">FORMULARIO</span>
+              <h3>Nuevo usuario</h3>
+            </div>
+
+            <span class="module-chip">HU-03</span>
           </div>
 
-          <div id="mensaje-general" class="mensaje" hidden></div>
+          <form id="form-usuario" class="enterprise-form" novalidate>
 
-          <button type="submit">Crear usuario</button>
-        </form>
-      </div>
+            <div class="enterprise-grid user-form-grid">
 
-      <h2>Usuarios</h2>
-      <ul id="lista-usuarios" class="lista-registros"></ul>
-    </main>
+              <div class="enterprise-field">
+                <label for="nombre">Nombre</label>
+
+                <div class="enterprise-input">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <circle cx="12" cy="8" r="3.5"
+                            stroke="currentColor" stroke-width="1.7"/>
+                    <path d="M5 20C5.8 16.2 8.1 14 12 14C15.9 14 18.2 16.2 19 20"
+                          stroke="currentColor" stroke-width="1.7"/>
+                  </svg>
+
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    placeholder="Nombre completo"
+                  />
+                </div>
+
+                <span class="error" data-error-for="nombre"></span>
+              </div>
+
+
+              <div class="enterprise-field">
+                <label for="correo">Correo electrónico</label>
+
+                <div class="enterprise-input">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M4 6H20V18H4V6Z"
+                          stroke="currentColor" stroke-width="1.7"/>
+                    <path d="M4 7L12 13L20 7"
+                          stroke="currentColor" stroke-width="1.7"/>
+                  </svg>
+
+                  <input
+                    type="email"
+                    id="correo"
+                    name="correo"
+                    placeholder="usuario@institucion.edu.do"
+                  />
+                </div>
+
+                <span class="error" data-error-for="correo"></span>
+              </div>
+
+
+              <div class="enterprise-field enterprise-field-full">
+                <label for="rol">Rol</label>
+
+                <div class="enterprise-select">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M5 5H19V19H5V5Z"
+                          stroke="currentColor" stroke-width="1.7"/>
+                    <path d="M9 9H15M9 13H15"
+                          stroke="currentColor" stroke-width="1.7"
+                          stroke-linecap="round"/>
+                  </svg>
+
+                  <select id="rol" name="rol">
+                    <option value="">Selecciona un rol</option>
+                    <option value="administrador">Administrador</option>
+                    <option value="docente">Docente</option>
+                    <option value="padre">Padre</option>
+                    <option value="estudiante">Estudiante</option>
+                  </select>
+                </div>
+
+                <span class="error" data-error-for="rol"></span>
+              </div>
+
+            </div>
+
+
+            <div id="mensaje-general" class="mensaje module-message" hidden></div>
+
+
+            <div class="enterprise-form-actions">
+
+              <button type="button" class="enterprise-btn secondary" id="btn-limpiar-usuario">
+                Limpiar
+              </button>
+
+              <button type="submit" class="enterprise-btn primary">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M12 5V19M5 12H19"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"/>
+                </svg>
+                Crear usuario
+              </button>
+
+            </div>
+
+          </form>
+
+        </section>
+
+
+        <!-- LISTADO -->
+        <section class="module-card">
+
+          <div class="module-card-header">
+            <div>
+              <span class="card-eyebrow">REGISTROS</span>
+              <h3>Usuarios registrados</h3>
+            </div>
+
+            <div class="records-tools">
+              <div class="records-search">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="10" cy="10" r="5"
+                          stroke="currentColor" stroke-width="1.7"/>
+                  <path d="M14 14L20 20"
+                        stroke="currentColor" stroke-width="1.7"
+                        stroke-linecap="round"/>
+                </svg>
+
+                <input
+                  type="text"
+                  id="filtro-usuarios"
+                  placeholder="Filtrar..."
+                />
+              </div>
+            </div>
+          </div>
+
+          <div class="users-list-header">
+            <span>Usuario</span>
+            <span>Acciones</span>
+          </div>
+
+          <ul id="lista-usuarios" class="lista-registros users-records"></ul>
+
+        </section>
+
+      </main>
+    </div>
   </div>
+
+
   <script src="/js/layout.js"></script>
   <script src="/js/usuarios.js"></script>
+
+  <script>
+    const formUsuario = document.getElementById('form-usuario');
+
+    function limpiarUsuario() {
+      formUsuario.reset();
+
+      document.querySelectorAll('#form-usuario .error')
+        .forEach(error => error.textContent = '');
+
+      const mensaje = document.getElementById('mensaje-general');
+
+      if (mensaje) {
+        mensaje.hidden = true;
+      }
+
+      document.getElementById('nombre').focus();
+    }
+
+    document.getElementById('btn-nuevo-usuario')
+      .addEventListener('click', limpiarUsuario);
+
+    document.getElementById('btn-limpiar-usuario')
+      .addEventListener('click', limpiarUsuario);
+
+    document.getElementById('filtro-usuarios')
+      .addEventListener('input', function () {
+
+        const texto = this.value.toLowerCase();
+
+        document.querySelectorAll('#lista-usuarios > li')
+          .forEach(item => {
+            item.style.display =
+              item.textContent.toLowerCase().includes(texto)
+                ? ''
+                : 'none';
+          });
+
+      });
+  </script>
+
 </body>
 </html>

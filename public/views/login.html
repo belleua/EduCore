@@ -1,52 +1,341 @@
 <!DOCTYPE html>
+
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Iniciar sesión · EduCore</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
-<body data-page="login">
-  <div class="app-shell">
-    <aside class="sidebar">
-      <a href="/views/index.html" class="marca">
-        <span class="marca-sello">EC</span>
-        <span class="marca-texto">EduCore</span>
-      </a>
-      <ul class="nav-lista">
-        <li><a href="/views/index.html" data-page="inicio">Inicio</a></li>
-        <li><a href="/views/registro-escuela.html" data-page="escuelas">Escuelas</a></li>
-        <li data-solo-admin><a href="/views/usuarios.html" data-page="usuarios">Usuarios</a></li>
-      </ul>
-      <div class="nav-usuario" id="nav-usuario"></div>
-    </aside>
 
-    <main class="contenido">
-      <h1>Iniciar sesión</h1>
-      <p class="subtitulo">Accede con tu correo y contraseña.</p>
+<body data-page="login" class="login-page">
 
-      <div class="ficha">
-        <form id="form-login" novalidate>
-          <div class="campo">
-            <label for="correo">Correo</label>
-            <input type="email" id="correo" name="correo" />
-            <span class="error" data-error-for="correo"></span>
-          </div>
+  <div class="login-background">
 
-          <div class="campo">
-            <label for="contrasena">Contraseña</label>
-            <input type="password" id="contrasena" name="contrasena" />
-            <span class="error" data-error-for="contrasena"></span>
-          </div>
+```
+<div class="login-container">
 
-          <div id="mensaje-general" class="mensaje" hidden></div>
+  <!-- LADO INSTITUCIONAL -->
+  <section class="login-brand-panel">
 
-          <button type="submit">Iniciar sesión</button>
-        </form>
+    <div class="login-brand-top">
+
+      <div class="login-logo">
+        <span>EC</span>
       </div>
-    </main>
+
+      <div>
+        <h2>EduCore</h2>
+        <p>Sistema de Gestión Escolar</p>
+      </div>
+
+    </div>
+
+
+    <div class="login-brand-content">
+
+      <span class="login-badge">
+        PLATAFORMA INSTITUCIONAL
+      </span>
+
+      <h1>
+        La gestión educativa,
+        <span>en un solo lugar.</span>
+      </h1>
+
+      <p class="login-brand-description">
+        Todo lo que necesitas para gestionar tu institución.
+      </p>
+
+
+      <div class="login-features">
+
+        <div class="login-feature">
+
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M12 3L4 7V11C4 16 7.4 20.5 12 22C16.6 20.5 20 16 20 11V7L12 3Z"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M9 12L11 14L15 10"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <strong>Acceso seguro</strong>
+            <span>Información protegida.</span>
+          </div>
+
+        </div>
+
+
+        <div class="login-feature">
+
+          <div class="feature-icon">
+            <svg viewBox="0 0 24 24" fill="none">
+              <path
+                d="M4 19V10M10 19V5M16 19V13M22 19H2"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+
+          <div>
+            <strong>Gestión centralizada</strong>
+            <span>Todo en un mismo sistema.</span>
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <div class="login-brand-footer">
+      <span>© 2026 EduCore</span>
+    </div>
+
+  </section>
+
+
+  <!-- LADO LOGIN -->
+  <section class="login-form-panel">
+
+    <div class="login-form-wrapper">
+
+      <div class="login-mobile-logo">
+
+        <div class="login-logo">
+          <span>EC</span>
+        </div>
+
+        <div>
+          <strong>EduCore</strong>
+          <small>Gestión Escolar</small>
+        </div>
+
+      </div>
+
+
+      <div class="login-form-heading">
+
+        <span class="login-eyebrow">BIENVENIDO</span>
+
+        <h2>Iniciar sesión</h2>
+
+        <p>
+          Ingresa tus credenciales para continuar.
+        </p>
+
+      </div>
+
+
+      <form id="form-login" class="login-form" novalidate>
+
+        <!-- CORREO -->
+        <div class="login-field">
+
+          <label for="correo">Correo electrónico</label>
+
+          <div class="login-input-wrapper">
+
+            <span class="login-input-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M4 6H20V18H4V6Z"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M4 7L12 13L20 7"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </span>
+
+            <input
+              type="email"
+              id="correo"
+              name="correo"
+              placeholder="usuario@institucion.edu.do"
+              autocomplete="email"
+            />
+
+          </div>
+
+          <span class="error" data-error-for="correo"></span>
+
+        </div>
+
+
+        <!-- CONTRASEÑA -->
+        <div class="login-field">
+
+          <label for="contrasena">Contraseña</label>
+
+          <div class="login-input-wrapper">
+
+            <span class="login-input-icon">
+              <svg viewBox="0 0 24 24" fill="none">
+                <rect
+                  x="5"
+                  y="10"
+                  width="14"
+                  height="10"
+                  rx="2"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                />
+                <path
+                  d="M8 10V7C8 4.8 9.8 3 12 3C14.2 3 16 4.8 16 7V10"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                />
+              </svg>
+            </span>
+
+            <input
+              type="password"
+              id="contrasena"
+              name="contrasena"
+              placeholder="Ingresa tu contraseña"
+              autocomplete="current-password"
+            />
+
+            <button
+              type="button"
+              class="toggle-password"
+              id="toggle-password"
+              aria-label="Mostrar contraseña"
+            >
+              <svg viewBox="0 0 24 24" fill="none">
+                <path
+                  d="M2 12C4.5 7.5 8 5.5 12 5.5C16 5.5 19.5 7.5 22 12C19.5 16.5 16 18.5 12 18.5C8 18.5 4.5 16.5 2 12Z"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                />
+                <circle
+                  cx="12"
+                  cy="12"
+                  r="2.5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                />
+              </svg>
+            </button>
+
+          </div>
+
+          <span class="error" data-error-for="contrasena"></span>
+
+        </div>
+
+
+        <div
+          id="mensaje-general"
+          class="mensaje login-message"
+          hidden
+        ></div>
+
+
+        <button type="submit" class="login-submit">
+
+          <span>Iniciar sesión</span>
+
+          <svg viewBox="0 0 24 24" fill="none">
+            <path
+              d="M5 12H19M14 7L19 12L14 17"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+
+        </button>
+
+      </form>
+
+
+      <div class="login-help">
+
+        <div class="login-help-icon">
+          <svg viewBox="0 0 24 24" fill="none">
+            <circle
+              cx="12"
+              cy="12"
+              r="9"
+              stroke="currentColor"
+              stroke-width="1.7"
+            />
+            <path
+              d="M9.8 9C10.1 7.8 11 7 12.3 7C13.8 7 15 8 15 9.4C15 10.5 14.4 11.1 13.2 11.8C12.3 12.3 12 12.9 12 14"
+              stroke="currentColor"
+              stroke-width="1.7"
+              stroke-linecap="round"
+            />
+            <circle cx="12" cy="17" r="1" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <div>
+          <strong>¿Problemas para acceder?</strong>
+          <p>Contacta al administrador de tu institución.</p>
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <footer class="login-footer">
+      © 2026 EduCore · Gestión Escolar
+    </footer>
+
+  </section>
+
+</div>
+```
+
   </div>
-  <script src="/js/layout.js"></script>
+
   <script src="/js/auth.js"></script>
+
+  <script>
+    const togglePassword = document.getElementById('toggle-password');
+    const passwordInput = document.getElementById('contrasena');
+
+    togglePassword.addEventListener('click', () => {
+      const visible = passwordInput.type === 'text';
+
+      passwordInput.type = visible ? 'password' : 'text';
+
+      togglePassword.setAttribute(
+        'aria-label',
+        visible ? 'Mostrar contraseña' : 'Ocultar contraseña'
+      );
+    });
+  </script>
+
 </body>
 </html>

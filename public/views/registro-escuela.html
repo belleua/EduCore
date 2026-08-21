@@ -3,65 +3,410 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Registrar escuela · EduCore</title>
+  <title>Escuelas · EduCore</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="/css/styles.css" />
 </head>
-<body data-page="escuelas">
-  <div class="app-shell">
-    <aside class="sidebar">
-      <a href="/views/index.html" class="marca">
-        <span class="marca-sello">EC</span>
-        <span class="marca-texto">EduCore</span>
-      </a>
-      <ul class="nav-lista">
-        <li><a href="/views/index.html" data-page="inicio">Inicio</a></li>
-        <li><a href="/views/registro-escuela.html" data-page="escuelas">Escuelas</a></li>
-        <li data-solo-admin><a href="/views/usuarios.html" data-page="usuarios">Usuarios</a></li>
-      </ul>
-      <div class="nav-usuario" id="nav-usuario"></div>
-    </aside>
 
-    <main class="contenido">
-      <h1>Registrar escuela</h1>
-      <p class="subtitulo">Como administrador del sistema, registra una escuela para que su personal pueda empezar a gestionar sus estudiantes.</p>
+<body data-page="escuelas" class="dashboard-page">
 
-      <div class="ficha">
-        <form id="form-escuela" novalidate>
-          <div class="campo">
-            <label for="nombre">Nombre de la escuela</label>
-            <input type="text" id="nombre" name="nombre" />
-            <span class="error" data-error-for="nombre"></span>
+  <div class="dashboard-background">
+
+    <div class="dashboard-shell">
+
+      <!-- SIDEBAR -->
+      <aside class="dashboard-sidebar">
+
+        <a href="/views/index.html" class="marca dashboard-brand">
+          <span class="marca-sello">EC</span>
+
+          <span class="dashboard-brand-copy">
+            <strong class="marca-texto">EduCore</strong>
+            <small>Gestión Escolar</small>
+          </span>
+        </a>
+
+        <div class="sidebar-section-label">MENÚ</div>
+
+        <ul class="nav-lista dashboard-nav">
+
+          <li>
+            <a href="/views/index.html" data-page="inicio">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M4 11L12 4L20 11V20H14V14H10V20H4V11Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linejoin="round"/>
+                </svg>
+              </span>
+              <span>Inicio</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/views/registro-escuela.html" data-page="escuelas">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M4 20V9L12 4L20 9V20"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linejoin="round"/>
+                  <path d="M8 20V13H16V20"
+                        stroke="currentColor"
+                        stroke-width="1.8"/>
+                </svg>
+              </span>
+              <span>Escuelas</span>
+            </a>
+          </li>
+
+          <li data-solo-admin>
+            <a href="/views/usuarios.html" data-page="usuarios">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="9" cy="8" r="3"
+                          stroke="currentColor"
+                          stroke-width="1.8"/>
+                  <path d="M3.5 19C4.2 15.9 6.1 14 9 14C11.9 14 13.8 15.9 14.5 19"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"/>
+                  <path d="M16 8H21M18.5 5.5V10.5"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span>Usuarios</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/views/registrar-calificaciones.html" data-page="registrar-cal">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M5 4H19V20H5V4Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"/>
+                  <path d="M8 8H16M8 12H16M8 16H13"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span>Registrar notas</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="/views/consultar-calificaciones.html" data-page="consultar-cal">
+              <span class="nav-icon">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="10" cy="10" r="5"
+                          stroke="currentColor"
+                          stroke-width="1.8"/>
+                  <path d="M14 14L20 20"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"/>
+                </svg>
+              </span>
+              <span>Consultar notas</span>
+            </a>
+          </li>
+
+        </ul>
+
+        <div class="sidebar-bottom">
+          <div class="nav-usuario dashboard-user" id="nav-usuario"></div>
+        </div>
+
+      </aside>
+
+
+      <!-- CONTENIDO -->
+      <main class="dashboard-content">
+
+        <header class="dashboard-topbar">
+          <div>
+            <span class="dashboard-kicker">HU-01 · GESTIÓN ESCOLAR</span>
+            <h1>Escuelas</h1>
           </div>
 
-          <div class="campo">
-            <label for="codigo">Código</label>
-            <input type="text" id="codigo" name="codigo" />
-            <span class="error" data-error-for="codigo"></span>
+          <div class="dashboard-top-actions">
+            <span class="status-pill">
+              <span class="status-dot"></span>
+              Módulo activo
+            </span>
+          </div>
+        </header>
+
+
+        <!-- CABECERA -->
+        <section class="module-hero">
+
+          <div>
+            <span class="module-path">EduCore • Registro institucional</span>
+            <h2>Registro de escuelas</h2>
+            <p>Administración de instituciones.</p>
           </div>
 
-          <div class="campo">
-            <label for="direccion">Dirección</label>
-            <input type="text" id="direccion" name="direccion" />
-            <span class="error" data-error-for="direccion"></span>
+          <div class="module-actions">
+            <button type="button" class="module-btn module-btn-outline" id="btn-limpiar">
+              <svg viewBox="0 0 24 24" fill="none">
+                <path d="M12 5V19M5 12H19"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"/>
+              </svg>
+              Nuevo
+            </button>
           </div>
 
-          <div class="campo">
-            <label for="contacto">Contacto</label>
-            <input type="text" id="contacto" name="contacto" placeholder="Teléfono o correo" />
-            <span class="error" data-error-for="contacto"></span>
+        </section>
+
+
+        <!-- FORMULARIO -->
+        <section class="module-card">
+
+          <div class="module-card-header">
+            <div>
+              <span class="card-eyebrow">FORMULARIO</span>
+              <h3>Datos de la escuela</h3>
+            </div>
+
+            <span class="module-chip">HU-01</span>
           </div>
 
-          <div id="mensaje-general" class="mensaje" hidden></div>
 
-          <button type="submit">Registrar escuela</button>
-        </form>
-      </div>
+          <form id="form-escuela" class="enterprise-form" novalidate>
 
-      <h2>Escuelas registradas</h2>
-      <ul id="lista-escuelas" class="lista-registros"></ul>
-    </main>
+            <div class="enterprise-grid">
+
+              <div class="enterprise-field">
+                <label for="nombre">Nombre de la escuela</label>
+
+                <div class="enterprise-input">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M4 20V9L12 4L20 9V20"
+                          stroke="currentColor"
+                          stroke-width="1.7"/>
+                    <path d="M8 20V13H16V20"
+                          stroke="currentColor"
+                          stroke-width="1.7"/>
+                  </svg>
+
+                  <input
+                    type="text"
+                    id="nombre"
+                    name="nombre"
+                    placeholder="Ej. Colegio San Marcos"
+                  />
+                </div>
+
+                <span class="error" data-error-for="nombre"></span>
+              </div>
+
+
+              <div class="enterprise-field">
+                <label for="codigo">Código</label>
+
+                <div class="enterprise-input">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M7 7H17V17H7V7Z"
+                          stroke="currentColor"
+                          stroke-width="1.7"/>
+                    <path d="M4 10V4H10M14 4H20V10M20 14V20H14M10 20H4V14"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"/>
+                  </svg>
+
+                  <input
+                    type="text"
+                    id="codigo"
+                    name="codigo"
+                    placeholder="Ej. ESC-001"
+                  />
+                </div>
+
+                <span class="error" data-error-for="codigo"></span>
+              </div>
+
+
+              <div class="enterprise-field enterprise-field-full">
+                <label for="direccion">Dirección</label>
+
+                <div class="enterprise-input">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M12 21C12 21 19 15 19 9.5C19 5.9 15.9 3 12 3C8.1 3 5 5.9 5 9.5C5 15 12 21 12 21Z"
+                          stroke="currentColor"
+                          stroke-width="1.7"/>
+                    <circle cx="12" cy="9.5" r="2.5"
+                            stroke="currentColor"
+                            stroke-width="1.7"/>
+                  </svg>
+
+                  <input
+                    type="text"
+                    id="direccion"
+                    name="direccion"
+                    placeholder="Dirección de la institución"
+                  />
+                </div>
+
+                <span class="error" data-error-for="direccion"></span>
+              </div>
+
+
+              <div class="enterprise-field enterprise-field-full">
+                <label for="contacto">Contacto</label>
+
+                <div class="enterprise-input">
+                  <svg viewBox="0 0 24 24" fill="none">
+                    <path d="M5 4H19V18H8L5 21V4Z"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linejoin="round"/>
+                    <path d="M8 8H16M8 12H14"
+                          stroke="currentColor"
+                          stroke-width="1.7"
+                          stroke-linecap="round"/>
+                  </svg>
+
+                  <input
+                    type="text"
+                    id="contacto"
+                    name="contacto"
+                    placeholder="Teléfono o correo"
+                  />
+                </div>
+
+                <span class="error" data-error-for="contacto"></span>
+              </div>
+
+            </div>
+
+
+            <div id="mensaje-general" class="mensaje module-message" hidden></div>
+
+
+            <div class="enterprise-form-actions">
+
+              <button type="button" class="enterprise-btn secondary" id="btn-cancelar">
+                Limpiar
+              </button>
+
+              <button type="submit" class="enterprise-btn primary">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M5 5H17L20 8V19H5V5Z"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linejoin="round"/>
+                  <path d="M8 5V10H16V5M8 19V14H17V19"
+                        stroke="currentColor"
+                        stroke-width="1.8"/>
+                </svg>
+                Registrar escuela
+              </button>
+
+            </div>
+
+          </form>
+
+        </section>
+
+
+        <!-- LISTADO -->
+        <section class="module-card">
+
+          <div class="module-card-header">
+            <div>
+              <span class="card-eyebrow">REGISTROS</span>
+              <h3>Escuelas registradas</h3>
+            </div>
+
+            <div class="records-tools">
+              <div class="records-search">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <circle cx="10" cy="10" r="5"
+                          stroke="currentColor"
+                          stroke-width="1.7"/>
+                  <path d="M14 14L20 20"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"/>
+                </svg>
+
+                <input
+                  type="text"
+                  id="filtro-escuelas"
+                  placeholder="Filtrar..."
+                />
+              </div>
+            </div>
+          </div>
+
+
+          <div class="records-table-head">
+            <span>Institución</span>
+            <span>Código</span>
+          </div>
+
+          <ul id="lista-escuelas" class="lista-registros enterprise-records"></ul>
+
+        </section>
+
+      </main>
+
+    </div>
+
   </div>
+
+
   <script src="/js/layout.js"></script>
   <script src="/js/escuelas.js"></script>
+
+  <script>
+    const formEscuela = document.getElementById('form-escuela');
+    const botonLimpiar = document.getElementById('btn-limpiar');
+    const botonCancelar = document.getElementById('btn-cancelar');
+    const filtroEscuelas = document.getElementById('filtro-escuelas');
+
+    function limpiarFormulario() {
+      formEscuela.reset();
+
+      document.querySelectorAll('#form-escuela .error')
+        .forEach(error => error.textContent = '');
+
+      const mensaje = document.getElementById('mensaje-general');
+
+      if (mensaje) {
+        mensaje.hidden = true;
+      }
+
+      document.getElementById('nombre').focus();
+    }
+
+    botonLimpiar.addEventListener('click', limpiarFormulario);
+    botonCancelar.addEventListener('click', limpiarFormulario);
+
+    filtroEscuelas.addEventListener('input', function () {
+      const texto = this.value.toLowerCase();
+
+      document.querySelectorAll('#lista-escuelas li').forEach(item => {
+        item.style.display =
+          item.textContent.toLowerCase().includes(texto)
+            ? ''
+            : 'none';
+      });
+    });
+  </script>
+
 </body>
 </html>
